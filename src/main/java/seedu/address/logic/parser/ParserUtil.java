@@ -13,6 +13,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Type;
+import seedu.address.model.person.Nric;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,6 +36,37 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
+    /**
+     * Parses a {@code String type} into a {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
+    }
+    /**
+     * Parses a {@code String Nric} into a {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        return new Nric(trimmedNric);
+    }
+
+
 
     /**
      * Parses a {@code String name} into a {@code Name}.
