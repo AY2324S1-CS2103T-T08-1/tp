@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.doctor.Doctor;
+
+import javax.print.Doc;
 
 /**
  * The API of the Model component.
@@ -13,6 +16,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,4 +88,38 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     */
+    boolean hasDoctor(Doctor doctor);
+
+    /**
+     * Deletes the given doctor.
+     * The doctor must exist in the address book.
+     */
+    void deleteDoctor(Doctor doctor);
+
+    /**
+     * Adds the given doctor.
+     * {@code doctor} must not already exist in the address book.
+     */
+    void addDoctor(Doctor doctor);
+
+    /**
+     * Replaces the given doctor {@code target} with {@code editedDoctor}.
+     * {@code target} must exist in the address book.
+     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the address book.
+     */
+    void setDoctor(Doctor target, Doctor editedDoctor);
+
+    /** Returns an unmodifiable view of the filtered doctor list */
+    ObservableList<Doctor> getFilteredDoctorList();
+
+    /**
+     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDoctorList(Predicate<Doctor> predicate);
+
 }
